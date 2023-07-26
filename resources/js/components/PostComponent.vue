@@ -11,6 +11,21 @@
         </div>
         <button class="btn btn-primary mt-3" @click="sayHello">Hello</button>
         <div class="mb-5"></div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Job</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
         <SinglePostComponent></SinglePostComponent>
     </div>
 
@@ -21,24 +36,23 @@ import SinglePostComponent from "@/components/SinglePostComponent.vue";
 export default {
     name: "PostComponent",
     data() {
-        return {
-            name: 'Roman',
-            age: 34,
-        }
+        return {}
+    },
+
+    mounted() {
+        this.getPersons()
     },
     methods: {
-        sayHello(){
-            alert('Hello!')
+        getPersons() {
+            axios.get('/persons')
+                .then(function (data){
+                    console.log(data)
+                })
         }
     },
     computed: {
-        getJob(){
-            return this.name + ' работает в булочной'
-        }
+
     },
-
-
-
     components: {
         SinglePostComponent
     }
