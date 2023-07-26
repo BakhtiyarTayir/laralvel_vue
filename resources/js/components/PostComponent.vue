@@ -1,17 +1,6 @@
 <template>
     <div class="container-sm m-5 p-4">
-        <div class="row">
-            <div class="col-md-4">
-                <ul class="list-group">
-                    <li class="list-group-item">Name: {{ name }}</li>
-                    <li class="list-group-item">Age: {{ age }}</li>
-                    <li class="list-group-item">Job: {{ getJob }}</li>
-                </ul>
-            </div>
-        </div>
-        <button class="btn btn-primary mt-3" @click="sayHello">Hello</button>
         <div class="mb-5"></div>
-
         <table class="table">
             <thead>
             <tr>
@@ -22,6 +11,12 @@
             </tr>
             </thead>
             <tbody>
+            <tr v-for="person in persons">
+                <th scope="row">{{ person.id }}</th>
+                <td> {{ person.name }}</td>
+                <td> {{ person.age }}</td>
+                <td> {{ person.job }}</td>
+            </tr>
 
             </tbody>
         </table>
@@ -36,17 +31,19 @@ import SinglePostComponent from "@/components/SinglePostComponent.vue";
 export default {
     name: "PostComponent",
     data() {
-        return {}
+        return {
+            persons: null
+        }
     },
 
     mounted() {
-        this.getPersons()
+        this.persons = this.getPersons()
     },
     methods: {
         getPersons() {
             axios.get('/persons')
-                .then(function (data){
-                    console.log(data)
+                .then(data => {
+                    this.persons = data.data
                 })
         }
     },
